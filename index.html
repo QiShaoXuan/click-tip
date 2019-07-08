@@ -11,6 +11,13 @@
         height: 100%;
     }
 
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        user-select: none;
+    }
     .text-popup {
         animation: textPopup 1s;
         color: #00adb5;
@@ -38,11 +45,11 @@
 </style>
 
 <body>
-
+click !!!
 </body>
 <script>
 
-  function textPopup(texts) {
+  function textPopup(texts,colors = ['#00adb5']) {
     if (!texts || !Array.isArray(texts) || !texts.length) {
       return
     }
@@ -52,14 +59,16 @@
       const x = e.pageX
       const y = e.pageY
       const textElement = document.createElement('span')
+      const colorIndex = parseInt(Math.random()*(colors.length-0)+0,10)
 
       if (!texts[index]) {
         index = 0
       }
 
+
       textElement.classList.add('text-popup')
       textElement.innerHTML = texts[index]
-      textElement.style.cssText = `left: ${x - textElement.clientWidth / 2}px; top: ${y - textElement.clientHeight}px`
+      textElement.style.cssText = `left: ${x - textElement.clientWidth / 2}px; top: ${y - textElement.clientHeight}px; color: ${colors[colorIndex]}`
 
       body.appendChild(textElement)
 
@@ -72,6 +81,6 @@
     })
   }
 
-  textPopup(['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善']);
+  textPopup(['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善'],['#2486ff','#01cf97','#f28c48','#f4615c','#0057c3','#a2a9b6']);
 </script>
 </html>
