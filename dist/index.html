@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Title</title>
+</head>
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    .text-popup {
+        animation: textPopup 1s;
+        color: #00adb5;
+        user-select: none;
+        white-space: nowrap;
+        position: absolute;
+        z-index: 99;
+        font-size: 20px;
+    }
+
+    @keyframes textPopup {
+        0% {
+            opacity: 0;
+            transform: scale(.6);
+        }
+        5% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: scale(1);
+            transform: translateY(-50px);
+        }
+    }
+</style>
+
+<body>
+
+</body>
+<script>
+
+  function textPopup(texts) {
+    if (!texts || !Array.isArray(texts) || !texts.length) {
+      return
+    }
+    let index = 0
+    document.body.addEventListener('click', function (e) {
+      const body = document.body
+      const x = e.pageX
+      const y = e.pageY
+      const textElement = document.createElement('span')
+
+      if (!texts[index]) {
+        index = 0
+      }
+
+      textElement.classList.add('text-popup')
+      textElement.innerHTML = texts[index]
+      textElement.style.cssText = `left: ${x - textElement.clientWidth / 2}px; top: ${y - textElement.clientHeight}px`
+
+      body.appendChild(textElement)
+
+      textElement.addEventListener('animationend', function () {
+        textElement.parentNode.removeChild(textElement);
+      });
+
+      index += 1
+
+    })
+  }
+
+  textPopup(['富强', '民主', '文明', '和谐', '自由', '平等', '公正', '法治', '爱国', '敬业', '诚信', '友善']);
+</script>
+</html>
